@@ -1,0 +1,115 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-23 14:53+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: movies/apps.py:8 movies/models.py:69
+msgid "movies"
+msgstr "movies"
+
+#: movies/models.py:11
+msgid "unique key"
+msgstr "unique key"
+
+#: movies/models.py:23
+msgid "created"
+msgstr "created"
+
+#: movies/models.py:24
+msgid "modified"
+msgstr "modified"
+
+#: movies/models.py:32
+msgid "name"
+msgstr "name"
+
+#: movies/models.py:33 movies/models.py:76
+msgid "description"
+msgstr "description"
+
+#: movies/models.py:40 movies/models.py:105
+msgid "genre"
+msgstr "genre"
+
+#: movies/models.py:41 movies/models.py:87
+msgid "genres"
+msgstr "genres"
+
+#: movies/models.py:46
+msgid "male"
+msgstr "male"
+
+#: movies/models.py:47
+msgid "female"
+msgstr "female"
+
+#: movies/models.py:52
+msgid "full name"
+msgstr "full name"
+
+#: movies/models.py:53
+msgid "gender"
+msgstr "gender"
+
+#: movies/models.py:60 movies/models.py:89 movies/models.py:117
+msgid "person"
+msgstr "person"
+
+#: movies/models.py:61
+msgid "persons"
+msgstr "persons"
+
+#: movies/models.py:70
+msgid "tv_show"
+msgstr "tv_show"
+
+#: movies/models.py:72
+msgid "certificate"
+msgstr "certificate"
+
+#: movies/models.py:74
+msgid "file"
+msgstr "file"
+
+#: movies/models.py:75
+msgid "title"
+msgstr "title"
+
+#: movies/models.py:77
+msgid "creation date"
+msgstr "creation date"
+
+#: movies/models.py:79
+msgid "rating"
+msgstr "rating"
+
+#: movies/models.py:84
+msgid "type"
+msgstr "type"
+
+#: movies/models.py:96 movies/models.py:103 movies/models.py:115
+msgid "film work"
+msgstr "film work"
+
+#: movies/models.py:97
+msgid "film works"
+msgstr "film works"
+
+#: movies/models.py:118
+msgid "role"
+msgstr "role"
