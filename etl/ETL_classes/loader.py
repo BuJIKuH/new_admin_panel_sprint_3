@@ -3,7 +3,7 @@ import backoff
 import elasticsearch.exceptions
 from elasticsearch import helpers
 
-from etl.utils.connection_etl import elastic_search_connection
+from utils.connection_etl import elastic_search_connection
 
 
 class Loader:

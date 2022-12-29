@@ -1,7 +1,7 @@
 import datetime
 from typing import Iterator
 
-from etl.utils.connection_etl import postgres_connection
+from utils.connection_etl import postgres_connection
 
 
 class Extractor:
@@ -59,17 +59,17 @@ class Extractor:
             HAVING GREATEST(MAX(fw.modified), MAX(g.modified), MAX(p.modified)) > '{str(extract_timestamp)}' 
             ORDER BY GREATEST(MAX(fw.modified), MAX(g.modified), MAX(p.modified)) DESC;
             """
-            # подключившись к PostgreSQL формируем запрос
+
             cursor.execute(sql)
 
             while True:
-                # получаем строки, удовлетворяющие запросу размером chunk_size
+
                 rows = cursor.fetchmany(self.chunk_size)
-                # если таких строк нет - выходим
+
                 if not rows:
                     self.verbose.info('изменений не найдено')
                     break
-                # если строки есть - фиксируем в хранилище состояния
+
                 self.verbose.info(f'извлечено {len(rows)} строк')
                 for data in rows:
                     ids_list = self.state.get_state("filmwork_ids")

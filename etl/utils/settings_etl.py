@@ -1,7 +1,7 @@
 from pydantic import (BaseSettings, Field)
 import dotenv
 
-dotenv.load_dotenv('.env.db')
+dotenv.load_dotenv()
 
 
 class Dsn(BaseSettings):

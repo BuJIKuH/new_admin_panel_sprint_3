@@ -54,6 +54,14 @@ services:
       - service
     ports:
       - "${PORT_NGINX}:${PORT_NGINX}"
+  etl:
+    build: etl
+    env_file:
+      - ./.env
+    depends_on:
+      - nginx
+      - service
+      - elasticsearch
 
   swagger:
     container_name: swagger-container
