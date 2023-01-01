@@ -2,23 +2,23 @@ version: "3.0"
 services:
   elasticsearch:
     container_name: es-container
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.5.3
+    image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION}"
     environment:
       - xpack.security.enabled=false
       - "discovery.type=single-node"
     depends_on:
       - db
     ports:
-      - "9200:9200"
+      - "${ES_PORT}:${ES_PORT}"
   kibana:
     container_name: kibana-container
-    image: docker.elastic.co/kibana/kibana:8.5.3
+    image: "docker.elastic.co/kibana/kibana:${KB_VERSION}"
     environment:
-      - ELASTICSEARCH_HOSTS=http://es-container:9200
+      - "ELASTICSEARCH_HOSTS=http://es-container:${ES_PORT}"
     depends_on:
       - elasticsearch
     ports:
-      - "5601:5601"
+      - "${PORT_KB}:${PORT_KB}"
   db:
     container_name: postgres-container
     image: "postgres:${POSTGRES_VERSION}"
