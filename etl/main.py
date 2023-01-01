@@ -19,7 +19,7 @@ from utils.logger_etl import get_logger
 @backoff.on_exception(wait_gen=backoff.expo,
                       exception=(psycopg2.Error, psycopg2.OperationalError))
 def etl(verbose: logging.Logger,
-        extracrot: Extractor,
+        extractor: Extractor,
         transformer: Transformer,
         state: State,
         loader: Loader) -> None:
@@ -32,7 +32,7 @@ def etl(verbose: logging.Logger,
     start_timestamp = datetime.datetime.now()
     filmwork_ids = state.get_state('filmwork_ids')
 
-    for extracted_part in extracrot.extract(
+    for extracted_part in extractor.extract(
         last_sync_timestamp,
         start_timestamp,
         filmwork_ids
