@@ -38,7 +38,6 @@ def etl(verbose: logging.Logger,
         state.set_state("last_sync_timestamp", str(start_timestamp))
 
 
-
 if __name__ == '__main__':
     configs = BaseConfig()
     logger = get_logger(__name__)
