@@ -46,30 +46,22 @@ class Extractor:
                         LEFT JOIN content.person_film_work pfw ON fw.id = pfw.film_work_id
                         LEFT JOIN content.person p ON pfw.person_id = p.id
                     GROUP BY fw.id
+                    HAVING GREATEST(MAX(fw.modified), MAX(g.modified), MAX(p.modified)) > '{str(extract_timestamp)}' 
+                    ORDER BY GREATEST(MAX(fw.modified), MAX(g.modified), MAX(p.modified)) DESC;
                     """
 
-            # если переданный аргумент exclude_ids не пустой
             if exclude_ids:
-                # добавляем условие
                 sql += f"""
                 AND (fw.id not in {tuple(exclude_ids)} OR 
                   GREATEST(MAX(fw.modified), MAX(g.modified), MAX(p.modified)) > '{str(start_timestamp)}')
                 """
-            sql += f"""
-            HAVING GREATEST(MAX(fw.modified), MAX(g.modified), MAX(p.modified)) > '{str(extract_timestamp)}' 
-            ORDER BY GREATEST(MAX(fw.modified), MAX(g.modified), MAX(p.modified)) DESC;
-            """
-
             cursor.execute(sql)
 
             while True:
-
                 rows = cursor.fetchmany(self.chunk_size)
-
                 if not rows:
                     self.verbose.info('изменений не найдено')
                     break
-
                 self.verbose.info(f'извлечено {len(rows)} строк')
                 for data in rows:
                     ids_list = self.state.get_state("filmwork_ids")
