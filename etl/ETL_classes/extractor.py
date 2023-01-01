@@ -15,9 +15,7 @@ class Extractor:
         self.verbose = verbose
 
     def extract(self,
-                extract_timestamp: datetime.datetime,
-                start_timestamp: datetime.datetime,
-                exclude_ids: list) -> Iterator:
+                extract_timestamp: datetime.datetime) -> Iterator:
         """
         Метод чтения данных пачками.
         Ищем строки, удовлетворяющие условию - при нахождении записываем
@@ -33,6 +31,7 @@ class Extractor:
                         json_agg(DISTINCT g.name) as genre,
                         fw.title,
                         fw.description,
+                        fw.modified,
                         string_agg(DISTINCT CASE WHEN pfw.role = 'director' THEN p.full_name ELSE '' END, ',') AS director,
                         array_remove(COALESCE(array_agg(DISTINCT CASE WHEN pfw.role = 'actor' THEN p.full_name END) FILTER (WHERE p.full_name IS NOT NULL)), NULL) AS actors_names,
                         array_remove(COALESCE(array_agg(DISTINCT CASE WHEN pfw.role = 'writer' THEN p.full_name END) FILTER (WHERE p.full_name IS NOT NULL)), NULL) AS writers_names,
@@ -49,12 +48,6 @@ class Extractor:
                     HAVING GREATEST(MAX(fw.modified), MAX(g.modified), MAX(p.modified)) > '{str(extract_timestamp)}' 
                     ORDER BY GREATEST(MAX(fw.modified), MAX(g.modified), MAX(p.modified)) DESC;
                     """
-
-            if exclude_ids:
-                sql += f"""
-                AND (fw.id not in {tuple(exclude_ids)} OR 
-                  GREATEST(MAX(fw.modified), MAX(g.modified), MAX(p.modified)) > '{str(start_timestamp)}')
-                """
             cursor.execute(sql)
 
             while True:
@@ -63,8 +56,4 @@ class Extractor:
                     self.verbose.info('изменений не найдено')
                     break
                 self.verbose.info(f'извлечено {len(rows)} строк')
-                for data in rows:
-                    ids_list = self.state.get_state("filmwork_ids")
-                    ids_list.append(data['id'])
-                    self.state.set_state("filmwork_ids", ids_list)
                 yield rows

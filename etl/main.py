@@ -30,17 +30,13 @@ def etl(verbose: logging.Logger,
     last_sync_timestamp = state.get_state('last_sync_timestamp')
     verbose.info(f'последняя синхронизация была {last_sync_timestamp}')
     start_timestamp = datetime.datetime.now()
-    filmwork_ids = state.get_state('filmwork_ids')
-
     for extracted_part in extractor.extract(
-        last_sync_timestamp,
-        start_timestamp,
-        filmwork_ids
+        last_sync_timestamp
     ):
         data = transformer.transform(extracted_part)
         loader.load(data)
         state.set_state("last_sync_timestamp", str(start_timestamp))
-        state.set_state("filmwork_ids", [])
+
 
 
 if __name__ == '__main__':

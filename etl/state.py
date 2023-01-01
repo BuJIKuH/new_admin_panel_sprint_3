@@ -26,8 +26,7 @@ class JsonFileStorage(BaseStorage):
     def __init__(self, file_path: Optional[str] = None):
         self.file_path = file_path
         self.default_state = {
-            "last_sync_timestamp": "2020-09-16",
-            "filmwork_ids": []
+            "last_sync_timestamp": "2020-09-16"
         }
 
     def retrieve_state(self) -> dict:

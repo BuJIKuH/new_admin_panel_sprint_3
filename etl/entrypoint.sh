@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sleep 15
+sleep 20
 python main.py
 
 
